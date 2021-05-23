@@ -26,15 +26,7 @@
       required
     ></v-text-field>
 
-    
-
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox>
-
+  
     <v-btn
       color="success"
       class="mr-4"

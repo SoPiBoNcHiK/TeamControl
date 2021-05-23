@@ -6,15 +6,27 @@
     tile
   >
 
-    <v-list-item v-for="item in items" :key="item">
+    <v-list-item v-for="(item,index) in items" :key="index">
       <v-list-item-content>
-        <v-list-item-title>{{item.name}}</v-list-item-title>
+        <v-list-item-title link :to="`./team/${item.id}`">{{item.name}}</v-list-item-title>
+        <v-divider ></v-divider>
         <v-list-item-subtitle>
-          {{item.captain}}
+          Capitain: {{item.captain}}
         </v-list-item-subtitle>
         <v-list-item-subtitle>
-          {{item.players}}
+          Members
         </v-list-item-subtitle>
+        <v-list-item-subtitle v-for="player in items[index].players" :key="player">
+          {{player.name + ": " + player.aim}}
+        </v-list-item-subtitle>
+        <v-btn
+        outlined
+        rounded
+        text
+        link :to="`./team/${item.id}`" 
+      >
+        Открыть
+        </v-btn>
       </v-list-item-content>
     </v-list-item>
   </v-card>
@@ -34,14 +46,34 @@ export default {
     return{
       items: [
         {
+          id: 0,
           name: "DHI",
           captain: "Jogonosik",
-          players: "Wyndace"
+          players: [
+              {
+                name: "Jogonosik",
+                aim: "frontend"
+              },
+              {
+                name: "Wyndace",
+                aim: "backend"
+              }
+          ]
         },
         {
+          id: 1,
           name: "Aboba",
           captain: "Kek",
-          players: "Lol"
+          players: [
+            {
+               name: "Kek",
+               aim: "Boba"
+            },
+            {
+              name: "Clown",
+              aim: "Circus"
+            }
+          ]
         }
       ]
     }
