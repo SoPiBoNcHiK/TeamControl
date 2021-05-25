@@ -17,7 +17,7 @@ class CreateTeamsTable extends Migration
             $table->id();
             $table->string("name");
             $table->string("capitain");
-            $table->string("members");
+            $table->json("members");
             $table->timestamps();
         });
     }

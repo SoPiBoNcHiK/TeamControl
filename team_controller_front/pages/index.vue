@@ -77,6 +77,16 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    getTeams() {
+      this.$axios.get("http://127.0.0.1:8000/all_teams").then(result => {
+        this.items = result.data;
+      });
+    }
+  },
+  mounted() {
+    this.getTeams();
   }
 }
 </script>
