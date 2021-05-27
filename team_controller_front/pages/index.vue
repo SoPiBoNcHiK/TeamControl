@@ -11,21 +11,29 @@
         <v-list-item-title link :to="`./team/${item.id}`">{{item.name}}</v-list-item-title>
         <v-divider ></v-divider>
         <v-list-item-subtitle>
-          Capitain: {{item.captain}}
+          Capitain: {{item.capitain}}
         </v-list-item-subtitle>
         <v-list-item-subtitle>
           Members
         </v-list-item-subtitle>
-        <v-list-item-subtitle v-for="player in items[index].players" :key="player">
-          {{player.name + ": " + player.aim}}
-        </v-list-item-subtitle>
+        <v-list-item-content>
+          {{item.members}}
+        </v-list-item-content>
         <v-btn
         outlined
         rounded
         text
-        link :to="`./team/${item.id}`" 
+        link :to="`./${item.id}`" 
       >
         Открыть
+        </v-btn>
+      <v-btn
+        outlined
+        rounded
+        text
+        v-on:click="deleteTeam(item.id)" 
+      >
+        Удалить
         </v-btn>
       </v-list-item-content>
     </v-list-item>
@@ -37,6 +45,7 @@
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
+
 export default {
   components: {
     Logo,
@@ -44,43 +53,16 @@ export default {
   },
   data(){
     return{
-      items: [
-        {
-          id: 0,
-          name: "DHI",
-          captain: "Jogonosik",
-          players: [
-              {
-                name: "Jogonosik",
-                aim: "frontend"
-              },
-              {
-                name: "Wyndace",
-                aim: "backend"
-              }
-          ]
-        },
-        {
-          id: 1,
-          name: "Aboba",
-          captain: "Kek",
-          players: [
-            {
-               name: "Kek",
-               aim: "Boba"
-            },
-            {
-              name: "Clown",
-              aim: "Circus"
-            }
-          ]
-        }
-      ]
+      items: []
     }
   },
   methods: {
+    deleteTeam(id){
+      this.$axios.get("http://127.0.0.1:8000/api/delete_team/" + id);
+      this.getTeams();
+    },
     getTeams() {
-      this.$axios.get("http://127.0.0.1:8000/all_teams").then(result => {
+      this.$axios.get("http://127.0.0.1:8000/api/get_all").then(result => {
         this.items = result.data;
       });
     }
